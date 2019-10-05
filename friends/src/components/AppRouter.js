@@ -3,14 +3,14 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Login from './Login.js';
-import 
+import FriendsList from './FriendsList.js';
 
 const AppRouter = () => {
 
     return (
         <Switch>
             <Route path='/login' component={Login} />
-            <Route path='/friends' />
+            <Route path='/friends' component={FriendsList} />
         </Switch>
     );
 }

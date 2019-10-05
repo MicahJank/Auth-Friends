@@ -3,13 +3,16 @@ import React from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth.js';
 import useForm from '../utils/useForm.js';
 
-const Login = () => {
+const Login = props => {
     const [loginInfo, handleChanges, clearForm] = useForm();
 
     const submitHandler = e => {
         e.preventDefault();
         axiosWithAuth().post('/login', loginInfo)
-            .then(res => localStorage.setItem('token', res.data.payload))
+            .then(res => {
+                localStorage.setItem('token', res.data.payload);
+                props.history.push('/friends');
+            })
             .catch(err => console.log(err));
         clearForm();
     }
