@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { axiosWithAuth } from '../utils/axiosWithAuth.js';
 import useForm from '../utils/useForm.js';
 
 const Login = () => {
@@ -6,7 +8,9 @@ const Login = () => {
 
     const submitHandler = e => {
         e.preventDefault();
-        console.log(loginInfo);
+        axiosWithAuth().post('/login', loginInfo)
+            .then(res => localStorage.setItem('token', res.data.payload))
+            .catch(err => console.log(err));
         clearForm();
     }
 
@@ -14,14 +18,14 @@ const Login = () => {
     <form onSubmit={submitHandler}>
         <input 
             type='text'
-            name='userName'
-            value={loginInfo.userName || ''}
+            name='username'
+            value={loginInfo.username || ''}
             onChange={handleChanges}
         />
         <input 
             type='password'
-            name='userPass'
-            value={loginInfo.userPass || ''}
+            name='password'
+            value={loginInfo.password || ''}
             onChange={handleChanges}
         />
         <button>Log In</button>
