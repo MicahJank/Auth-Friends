@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { axiosWithAuth } from '../utils/axiosWithAuth.js';
+import Friend from './Friend.js';
+import AddFriendForm from './AddFriendForm.js';
 
 const FriendsList = () => {
 
+    const [modal, setModal] = useState(false);
     const friends = useSelector(state => state.friendsList.friends);
     const isPending = useSelector(state => state.friendsList.pending);
     const dispatch = useDispatch();
@@ -33,10 +36,12 @@ const FriendsList = () => {
         )
     } else {
         return (    
-            <div> 
-            {friends.map(friend => {
-                return <div>{friend.name}</div>
-            })}
+            <div className='friends-list'>
+                <button onClick={() => setModal(true)}>Add Friend</button>
+                <AddFriendForm modal={modal} setModal={setModal} />
+                {friends.map(friend => {
+                    return <Friend friendData={friend} key={friend.id} />
+                })}
             </div>
         )
     }
