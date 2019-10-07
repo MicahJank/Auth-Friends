@@ -31,3 +31,9 @@
   left: 36%;
   top: 20%;
 }
+
+.friend-container {
+  border: 1px solid black;
+  width: 40%;
+  margin: 20px auto;
+}
